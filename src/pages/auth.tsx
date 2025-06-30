@@ -7,9 +7,9 @@ const AuthenticationPage: React.FC = () => {
     <MainLayout>
       <Box
         component="form"
-        sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
         noValidate
         autoComplete="on"
+        sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
       >
         <TextField required id="outlined-required" label="Логин" defaultValue="" />
         <TextField

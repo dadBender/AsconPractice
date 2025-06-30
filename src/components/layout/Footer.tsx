@@ -1,4 +1,3 @@
-// src/components/layout/Footer.tsx
 import React from 'react';
 import { Box, Typography, Container, Link as MuiLink, Button } from '@mui/material';
 import Link from '@components/common/Link';
