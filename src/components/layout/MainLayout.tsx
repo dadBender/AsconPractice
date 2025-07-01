@@ -11,7 +11,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <Container component="main" sx={{ mt: 4, mb: 4 }} maxWidth="md">
+      <Container component="main" sx={{ mt: 4, mb: 4 }} maxWidth="lg">
         {children}
       </Container>
       <Footer />
