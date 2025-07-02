@@ -1,34 +1,6 @@
-import {
-  IntegrationInstructions,
-  PrecisionManufacturing,
-  Speed,
-  ThumbUp,
-} from '@mui/icons-material';
 import { Box, Card, CardContent, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
-
-const benefits = [
-  {
-    icon: <Speed />,
-    title: 'Скорость',
-    description: 'Построение резьбы занимает считанные минуты',
-  },
-  {
-    icon: <PrecisionManufacturing />,
-    title: 'Точность',
-    description: 'Минимизация ошибок проектирования',
-  },
-  {
-    icon: <IntegrationInstructions />,
-    title: 'Интеграция',
-    description: 'Полная совместимость с КОМПАС-3D',
-  },
-  {
-    icon: <ThumbUp />,
-    title: 'Удобство',
-    description: 'Простой и понятный интерфейс',
-  },
-];
+import { benefits } from '../../data';
 
 export const Benefits: React.FC = () => {
   return (
