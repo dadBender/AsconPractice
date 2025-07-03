@@ -13,27 +13,25 @@ const Header: React.FC = () => {
     <AppBar position="static" sx={{ backgroundColor: '#000' }}>
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          <Link href="/" passHref sx={{ color: '#ff5722', textDecoration: 'none' }}>
+          <Link href="/" passHref sx={{ textDecoration: 'none' }}>
             <Box sx={{ color: 'inherit', textDecoration: 'none' }}>ASCON</Box>
           </Link>
         </Typography>
 
         <Box>
-          <Link href="/products" underline="hover" sx={{ color: '#ff5722', mr: '10px' }}>
+          <Link href="/products" underline="hover" sx={{ mr: '10px' }}>
             Продукты
           </Link>
 
           {isAuthenticated ? (
             <>
-              <Link href="/account" underline="hover" sx={{ color: '#ff5722' }}>
+              <Link href="/account" underline="hover">
                 Личный кабинет
               </Link>
-              <Button sx={{ color: '#ff5722' }} onClick={() => dispatch(logout())}>
-                Выйти
-              </Button>
+              <Button onClick={() => dispatch(logout())}>Выйти</Button>
             </>
           ) : (
-            <Link href="/auth" underline="hover" sx={{ color: '#ff5722' }}>
+            <Link href="/auth" underline="hover">
               Вход
             </Link>
           )}
