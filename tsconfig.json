@@ -42,6 +42,9 @@
       ],
       "@types/*": [
         "types/*"
+      ],
+      "@data/*": [
+        "data/*"
       ]
     },
     "incremental": true
