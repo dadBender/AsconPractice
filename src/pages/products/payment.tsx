@@ -1,5 +1,7 @@
 import React from 'react';
 import MainLayout from '@components/layout/MainLayout';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import {
   Typography,
   Container,
@@ -13,45 +15,100 @@ import {
   FormHelperText,
   SelectChangeEvent,
 } from '@mui/material';
-import { cards } from '@data/cards';
 
 const PaymentPage: React.FC = () => {
   const [subscribe, setSubscribe] = React.useState('');
+  const [company, setCompany] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const isProVersion = React.useMemo(() => subscribe === 'Pro', [subscribe]);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSubscribe(event.target.value);
+  interface PaymentFormData {
+    name: string;
+    email: string;
+    subscribe: string;
+    company?: string;
+  }
+
+  const handleChangeSubscribe = (event: SelectChangeEvent) => {
+    const newValue = event.target.value;
+    setSubscribe(newValue);
   };
+  const handleChangeCompany = (event: SelectChangeEvent) => {
+    const newValue = event.target.value;
+    setCompany(newValue);
+  };
+
+  const mutation = useMutation({
+    mutationFn: (formData: PaymentFormData) => axios.post('/api/payment', formData),
+    onSuccess: data => console.log(data),
+  });
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    mutation.mutate({ name, email, subscribe, company });
+  };
+
   return (
     <MainLayout>
       <Container sx={{ mt: 4 }}>
         <Typography variant="h4" gutterBottom>
           Страница оплаты
         </Typography>
-        <Box component={'form'} sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <TextField required id="payment-name" label="Имя" defaultValue="" />
-          <TextField required id="payment-email" label="Почта" defaultValue="" />
+        <Box
+          component={'form'}
+          onSubmit={handleSubmit}
+          sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+        >
+          <TextField
+            required
+            id="payment-name"
+            label="Имя"
+            defaultValue=""
+            onChange={e => setName(e.target.value)}
+          />
+          <TextField
+            required
+            id="payment-email"
+            label="Почта"
+            defaultValue=""
+            onChange={e => setEmail(e.target.value)}
+          />
           <FormControl>
-            <InputLabel id="demo-simple-select-helper-label">Подписка</InputLabel>
+            <InputLabel id="subscribe-select">Подписка</InputLabel>
             <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
+              labelId="subscribe-select"
+              id="subscribe-select"
               value={subscribe}
               label="Подписка"
-              onChange={handleChange}
+              onChange={handleChangeSubscribe}
               sx={{ width: '100%' }}
             >
-              {cards.map(card => (
-                <MenuItem value={card.title}>{card.title}</MenuItem>
-              ))}
+              <MenuItem value="Plus">Plus</MenuItem>
+              <MenuItem value="Pro">Pro</MenuItem>
             </Select>
-            <FormHelperText>Продолжая оплату вы соглашаетесь на обработку данных</FormHelperText>
+            {!isProVersion && (
+              <FormHelperText>Продолжая оплату вы соглашаетесь на обработку данных</FormHelperText>
+            )}
           </FormControl>
-          <Button
-            variant="contained"
-            onClick={() => {
-              console.log('a');
-            }}
-          >
+          {isProVersion && (
+            <FormControl>
+              <InputLabel id="company-select">Компания</InputLabel>
+              <Select
+                labelId="company-select"
+                id="company-select"
+                value={company}
+                label="Компания"
+                onChange={handleChangeCompany}
+                sx={{ width: '100%' }}
+              >
+                <MenuItem value="A">A</MenuItem>
+                <MenuItem value="B">B</MenuItem>
+              </Select>
+              <FormHelperText>Продолжая оплату вы соглашаетесь на обработку данных</FormHelperText>
+            </FormControl>
+          )}
+          <Button variant="contained" type="submit">
             Оплатить
           </Button>
         </Box>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Typography } from '@mui/material';
 import {
   IntegrationInstructions,
   PrecisionManufacturing,
@@ -9,22 +8,22 @@ import {
 
 export const benefits = [
   {
-    icon: <Speed / >,
+    icon: <Speed />,
     title: 'Скорость',
     description: 'Построение резьбы занимает считанные минуты',
   },
   {
-    icon: <PrecisionManufacturing / >,
+    icon: <PrecisionManufacturing />,
     title: 'Точность',
     description: 'Минимизация ошибок проектирования',
   },
   {
-    icon: <IntegrationInstructions / >,
+    icon: <IntegrationInstructions />,
     title: 'Интеграция',
     description: 'Полная совместимость с КОМПАС-3D',
   },
   {
-    icon: <ThumbUp / >,
+    icon: <ThumbUp />,
     title: 'Удобство',
     description: 'Простой и понятный интерфейс',
   },
