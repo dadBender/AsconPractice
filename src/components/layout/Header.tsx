@@ -4,6 +4,7 @@ import Link from '@components/common/Link';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@store/index';
 import { logout } from '@features/auth/authSlice';
+import { LanguageSwitcher } from '../../shared/ui/LanguageSwitcher';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Header: React.FC = () => {
             <Box sx={{ color: 'inherit', textDecoration: 'none' }}>ASCON</Box>
           </Link>
         </Typography>
+        <LanguageSwitcher />
 
         <Box>
           <Link href="/products" underline="hover" sx={{ mr: '10px' }}>
@@ -25,13 +27,13 @@ const Header: React.FC = () => {
 
           {isAuthenticated ? (
             <>
-              <Link href="/account" underline="hover">
+              <Link href="/app/account" underline="hover">
                 Личный кабинет
               </Link>
               <Button onClick={() => dispatch(logout())}>Выйти</Button>
             </>
           ) : (
-            <Link href="/auth" underline="hover">
+            <Link href="/app/auth" underline="hover">
               Вход
             </Link>
           )}

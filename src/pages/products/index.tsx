@@ -1,11 +1,11 @@
-import React from 'react';
+import { useState } from 'react';
 import MainLayout from '@components/layout/MainLayout';
 import { Box, Container, Typography, Card, CardContent, CardActionArea } from '@mui/material';
 import { cards } from '@data/cards';
 import ProductSection from '@components/sections/ProductSection';
 
-const ProductsPage: React.FC = () => {
-  const [selectedCard, setSelectedCard] = React.useState(0);
+const ProductsPage = () => {
+  const [selectedCard, setSelectedCard] = useState(0);
   return (
     <MainLayout>
       <Container maxWidth="md" sx={{ mt: 4 }}>
@@ -26,7 +26,7 @@ const ProductsPage: React.FC = () => {
           }}
         >
           {cards.map((card, index) => (
-            <Card>
+            <Card key={index}>
               <CardActionArea
                 onClick={() => setSelectedCard(index)}
                 data-active={selectedCard === index ? '' : undefined}

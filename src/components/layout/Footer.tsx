@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Container, Link as MuiLink, Button } from '@mui/material';
+import { Box, Typography, Container, Button } from '@mui/material';
 import Link from '@components/common/Link';
 
 const Footer: React.FC = () => {
@@ -20,13 +20,13 @@ const Footer: React.FC = () => {
           </Link>
           {isAuthenticated ? (
             <>
-              <Link href="/account" underline="hover" sx={{ color: '#ff5722' }}>
+              <Link href="/app/account" underline="hover" sx={{ color: '#ff5722' }}>
                 Личный кабинет
               </Link>
               <Button sx={{ color: '#ff5722' }}>Выйти</Button>
             </>
           ) : (
-            <Link href="/auth" underline="hover" sx={{ color: '#ff5722' }}>
+            <Link href="/app/auth" underline="hover" sx={{ color: '#ff5722' }}>
               Вход
             </Link>
           )}

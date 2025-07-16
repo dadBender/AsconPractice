@@ -1,8 +1,12 @@
+// src/components/sections/Hero.tsx
 import { Box, Button, Container, Typography } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
+import { useTranslation } from 'next-i18next';
 
 export const Hero: React.FC = () => {
+  const { t } = useTranslation('common');
+
   return (
     <Container
       sx={{
@@ -12,25 +16,21 @@ export const Hero: React.FC = () => {
         my: 10,
       }}
     >
-      <Box
-        sx={{
-          width: { xs: '100%', md: '50%' },
-        }}
-      >
+      <Box sx={{ width: { xs: '100%', md: '50%' } }}>
         <Typography variant="h4" gutterBottom>
-          ASCON Thread
+          {t('hero.brand')}
         </Typography>
         <Typography variant="h2" gutterBottom>
-          Ускорьте генерацию резьбы в КОМПАС-3D
+          {t('hero.title')}
         </Typography>
         <Typography gutterBottom sx={{ mb: 2 }}>
-          Специализированное приложение для инженеров и конструкторов. Создавайте модели быстрее,
-          точнее и без лишней рутины.
+          {t('hero.description')}
         </Typography>
         <Button href="/products" variant="contained">
-          Попробовать
+          {t('hero.cta')}
         </Button>
       </Box>
+
       <Box
         sx={{
           width: { xs: '100%', md: '50%' },

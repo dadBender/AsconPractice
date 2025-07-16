@@ -1,8 +1,7 @@
-import React from 'react';
 import MainLayout from '@components/layout/MainLayout';
 import { Button, TextField, Box } from '@mui/material';
 
-const AuthenticationPage: React.FC = () => {
+const AuthenticationPage = () => {
   return (
     <MainLayout>
       <Box

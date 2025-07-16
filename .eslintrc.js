@@ -18,11 +18,18 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
+    'next',
+    'next/core-web-vitals',
     'prettier',
   ],
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/resolver': {
+      typescript: {
+        project: './tsconfig.json',
+      },
     },
   },
   rules: {
@@ -30,5 +37,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'react/react-in-jsx-scope': 'off', // не нужен в Next.js
     'react/prop-types': 'off', // используем TypeScript
+    'import/no-named-as-default-member': 'off', // Отключаем правило, если используете React.use
+    '@typescript-eslint/no-require-imports': 'off',
   },
 };

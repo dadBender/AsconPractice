@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useMemo } from 'react';
 import MainLayout from '@components/layout/MainLayout';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
@@ -16,12 +16,12 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-const PaymentPage: React.FC = () => {
-  const [subscribe, setSubscribe] = React.useState('');
-  const [company, setCompany] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const isProVersion = React.useMemo(() => subscribe === 'Pro', [subscribe]);
+const PaymentPage = () => {
+  const [subscribe, setSubscribe] = useState('');
+  const [company, setCompany] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const isProVersion = useMemo(() => subscribe === 'Pro', [subscribe]);
 
   interface PaymentFormData {
     name: string;
