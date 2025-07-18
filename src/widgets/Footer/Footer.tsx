@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
         </Typography>
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1, gap: 2 }}>
-          <Link href="/" passHref sx={{ color: '#ff5722' }}>
+          <Link href="/public" passHref sx={{ color: '#ff5722' }}>
             Главная
           </Link>
           <Link href="/products" underline="hover" sx={{ color: '#ff5722' }}>

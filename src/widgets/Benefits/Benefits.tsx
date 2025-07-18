@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
-import { benefits } from '../../data';
+import { benefits } from '@data/benefits';
 
 export const Benefits: React.FC = () => {
   return (

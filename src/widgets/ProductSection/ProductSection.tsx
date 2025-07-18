@@ -24,7 +24,7 @@ const ProductSection: React.FC<ProductCardProps> = ({ title, price, audience, fe
           <ListItem key={index}>• {feature}</ListItem>
         ))}
       </List>
-      <NextLink href="/products/payment" passHref legacyBehavior>
+      <NextLink href="/products/payment/payment" passHref legacyBehavior>
         <Button component="a" variant="contained">
           Купить
         </Button>

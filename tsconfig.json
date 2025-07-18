@@ -19,33 +19,21 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "paths": {
-      "@store/*": [
-        "store/*"
-      ],
-      "@theme/*": [
-        "theme/*"
-      ],
-      "@components/*": [
-        "components/*"
+      "@app/*": [
+        "app/*"
       ],
       "@features/*": [
         "features/*"
       ],
-      "@layouts/*": [
-        "layouts/*"
+      "@shared/*": [
+        "shared/*"
       ],
-      "@styles/*": [
-        "styles/*"
+      "@theme/*": [
+        "theme/*"
       ],
-      "@utils/*": [
-        "utils/*"
+      "@widgets/*": [
+        "widgets/*"
       ],
-      "@types/*": [
-        "types/*"
-      ],
-      "@data/*": [
-        "data/*"
-      ]
     },
     "incremental": true
   },

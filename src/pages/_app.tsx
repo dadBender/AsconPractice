@@ -2,10 +2,11 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
 import { Provider } from 'react-redux';
-import { store } from '@store/index';
+import { store } from '@app/store/index';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { theme } from '@theme/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import MainLayout from '@app/layouts/MainLayout/MainLayout';
 
 const queryClient = new QueryClient();
 
@@ -37,7 +38,9 @@ function App({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Component {...pageProps} />
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
           </ThemeProvider>
         </QueryClientProvider>
       </Provider>

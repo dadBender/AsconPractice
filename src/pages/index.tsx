@@ -1,17 +1,19 @@
 // src/pages/index.tsx
 import React from 'react';
-import MainLayout from '@components/layout/MainLayout';
-import { Benefits, CallToAction, FAQ, Hero } from '@components/sections';
+import { Benefits } from '@widgets/Benefits/Benefits';
+import { CallToAction } from '@widgets/CallToAction/CallToAction';
+import { FAQ } from '@widgets/FAQ/FAQ';
+import { Hero } from '@widgets/Hero/Hero';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const HomePage: React.FC = () => {
   return (
-    <MainLayout>
+    <>
       <Hero />
       <Benefits />
       <FAQ />
       <CallToAction />
-    </MainLayout>
+    </>
   );
 };
 

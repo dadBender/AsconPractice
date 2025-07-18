@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import Link from '../../shared/ui/Link/Link';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../app/store/index';
+import { RootState } from '../../app/store';
 import { logout } from '@features/auth/authSlice';
 import { LanguageSwitcher } from '../../shared/ui/LanguageSwitcher/LanguageSwitcher';
 
@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     <AppBar position="static" sx={{ backgroundColor: '#000' }}>
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          <Link href="/" passHref sx={{ textDecoration: 'none' }}>
+          <Link href="/public" passHref sx={{ textDecoration: 'none' }}>
             <Box sx={{ color: 'inherit', textDecoration: 'none' }}>ASCON</Box>
           </Link>
         </Typography>

@@ -1,13 +1,13 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Container } from '@mui/material';
-import Header from '../../widgets/Header/Header';
-import Footer from '../../widgets/Footer/Footer';
+import Header from '../../../widgets/Header/Header';
+import Footer from '../../../widgets/Footer/Footer';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const MainLayout: React.FC<Props> = ({ children }) => {
+export default function MainLayout({ children }: Props) {
   return (
     <>
       <Header />
@@ -17,6 +17,4 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       <Footer />
     </>
   );
-};
-
-export default MainLayout;
+}

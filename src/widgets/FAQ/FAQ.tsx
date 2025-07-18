@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { faq } from '../../data';
+import { faq } from '@data/index';
 
 export const FAQ: React.FC = () => {
   return (
