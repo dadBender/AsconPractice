@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import MainLayout from '@components/layout/MainLayout';
+import MainLayout from '../../app/layouts/MainLayout/MainLayout';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import {

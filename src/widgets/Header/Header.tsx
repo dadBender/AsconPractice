@@ -1,10 +1,10 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import Link from '@components/common/Link';
+import Link from '../../shared/ui/Link/Link';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@store/index';
+import { RootState } from '../../app/store/index';
 import { logout } from '@features/auth/authSlice';
-import { LanguageSwitcher } from '../../shared/ui/LanguageSwitcher';
+import { LanguageSwitcher } from '../../shared/ui/LanguageSwitcher/LanguageSwitcher';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();

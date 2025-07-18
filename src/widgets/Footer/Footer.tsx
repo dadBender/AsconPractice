@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
-import Link from '@components/common/Link';
+import Link from '../../shared/ui/Link/Link';
 
 const Footer: React.FC = () => {
   const isAuthenticated = false;

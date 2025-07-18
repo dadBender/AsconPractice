@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import Header from '@components/layout/Header';
-import Footer from '@components/layout/Footer';
+import Header from '../../widgets/Header/Header';
+import Footer from '../../widgets/Footer/Footer';
 
 interface Props {
   children: React.ReactNode;
