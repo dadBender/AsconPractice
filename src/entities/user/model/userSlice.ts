@@ -12,7 +12,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<User>) {
+    setUser(state, action: PayloadAction) {
       return action.payload;
     },
     clearUser() {
