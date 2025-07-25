@@ -1,47 +1,41 @@
-name: Deploy Frontend
+name: Deploy Next.js to VPS
 
 on:
   push:
     branches:
-      - main
+      - main  # или твоя ветка
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+    - name: Upload source files to server
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        source: |
+          pages
+          public
+          package.json
+          package-lock.json # если есть
+          next.config.js
+          # другие нужные файлы/папки
+        target: /root/apps/frontend
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
-
-      - name: Remove devDependencies (prepare production)
-        run: npm ci --omit=dev
-      
-      - name: Upload build to server via SCP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          source: ".next node_modules public package.json"
-          target: /root/apps/frontend/deploy
-
-      - name: Restart app via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            cd /root/apps/frontend/deploy
-            pm2 restart frontend || pm2 start npm --name frontend -- start
+    - name: Build and start on server
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          cd /root/apps/frontend
+          npm install
+          npm run build
+          pm2 restart frontend || pm2 start npm --name frontend -- run start
