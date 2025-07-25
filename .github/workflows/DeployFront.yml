@@ -1,0 +1,45 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main  # или ветка, с которой ты деплоишь
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Upload frontend via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: ".next/,public/,package.json,next.config.js"
+          target: "/root/apps/frontend/repo"  # куда будешь деплоить
+
+      - name: SSH & restart frontend
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.FRONT_SSH_KEY }}
+          script: |
+            cd /var/www/frontend
+            npm install --omit=dev
+            pm2 restart frontend || pm2 start npm --name frontend -- start
