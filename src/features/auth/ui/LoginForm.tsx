@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLogin } from '../model/useLogin';
+import { useLogin } from '@entities/user/model/useLogin.ts';
 import { TextField, Button, Box } from '@mui/material';
 
 export const LoginForm = () => {
