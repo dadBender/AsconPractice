@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@app/store';
 
 const AccountPage = () => {
-  const user = useSelector((state: RootState) => state.user);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   if (!user) return <div>Загрузка...</div>;
 

@@ -21,7 +21,7 @@ export const LoginForm = () => {
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
-      <Button type="submit" disabled={loginMutation.isLoading}>
+      <Button type="submit" disabled={loginMutation.status === 'pending'}>
         Войти
       </Button>
     </Box>
