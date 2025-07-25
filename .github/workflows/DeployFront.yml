@@ -1,41 +1,46 @@
-name: Deploy Next.js to VPS
+name: Deploy Frontend
 
 on:
   push:
     branches:
-      - main  # или твоя ветка
+      - main  # или ветка, с которой ты деплоишь
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-    - name: Upload source files to server
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        source: |
-          pages
-          public
-          package.json
-          package-lock.json # если есть
-          next.config.js
-          # другие нужные файлы/папки
-        target: /root/apps/frontend
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Build and start on server
-      uses: appleboy/ssh-action@v0.1.7
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        script: |
-          cd /root/apps/frontend
-          npm install
-          npm run build
-          pm2 restart frontend || pm2 start npm --name frontend -- run start
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Upload source files via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: ". , !node_modules , !.next"
+          target: "/root/apps/frontend/repo"
+
+      - name: SSH & install, build, restart
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /root/apps/frontend/repo
+            npm ci
+            npm run build
+            pm2 restart frontend || pm2 start npm --name frontend -- start
