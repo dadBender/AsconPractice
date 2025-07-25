@@ -26,18 +26,14 @@ jobs:
 
       - name: Remove devDependencies (prepare production)
         run: npm ci --omit=dev
-
+      
       - name: Upload build to server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: |
-            .next
-            node_modules
-            public
-            package.json
+          source: ".next node_modules public package.json"
           target: /root/apps/frontend/deploy
 
       - name: Restart app via SSH
