@@ -40,6 +40,6 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /var/www/frontend
+            cd /root/apps/frontend/repo
             npm install --omit=dev
             pm2 restart frontend || pm2 start npm --name frontend -- start
