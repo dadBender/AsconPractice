@@ -30,8 +30,8 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: ".next/,public/,package.json,next.config.js"
-          target: "/root/apps/frontend/repo"  # куда будешь деплоить
+          source: ".next/,public/,package.json,next.config.js,next-i18next.config.js"
+          target: "/root/apps/frontend/repo"
 
       - name: SSH & restart frontend
         uses: appleboy/ssh-action@v1.0.3
