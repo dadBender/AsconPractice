@@ -1,46 +1,51 @@
-name: Deploy Frontend
+name: Build and Deploy Frontend
 
 on:
   push:
     branches:
-      - main  # или ветка, с которой ты деплоишь
+      - main  # или твоя ветка
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # или версия, которую ты используешь
 
-      - name: Install dependencies
-        run: npm ci
+    - name: Install dependencies
+      run: npm ci
 
-      - name: Build frontend
-        run: npm run build
+    - name: Build Next.js app
+      run: npm run build
 
-      - name: Upload source files via SSH
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          source: ". , !node_modules , !.next"
-          target: "/root/apps/frontend/repo"
+    - name: Deploy to server via SCP
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        source: |
+          .next
+          node_modules
+          public
+          package.json
+          next.config.js
+        target: /root/apps/frontend/repo/
 
-      - name: SSH & install, build, restart
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            cd /root/apps/frontend/repo
-            npm ci
-            npm run build
-            pm2 restart frontend || pm2 start npm --name frontend -- start
+    - name: Restart pm2 on server
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        script: |
+          cd /root/apps/frontend/repo
+          pm2 restart frontend || pm2 start npm --name frontend -- run start
