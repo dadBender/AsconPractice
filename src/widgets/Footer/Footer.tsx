@@ -15,18 +15,15 @@ const Footer: React.FC = () => {
           <Link href="/public" passHref sx={{ color: '#ff5722' }}>
             Главная
           </Link>
-          <Link href="/products" underline="hover" sx={{ color: '#ff5722' }}>
-            Продукты
-          </Link>
           {isAuthenticated ? (
             <>
-              <Link href="/app/account" underline="hover" sx={{ color: '#ff5722' }}>
+              <Link href="/account" underline="hover" sx={{ color: '#ff5722' }}>
                 Личный кабинет
               </Link>
               <Button sx={{ color: '#ff5722' }}>Выйти</Button>
             </>
           ) : (
-            <Link href="/app/auth" underline="hover" sx={{ color: '#ff5722' }}>
+            <Link href="/auth" underline="hover" sx={{ color: '#ff5722' }}>
               Вход
             </Link>
           )}

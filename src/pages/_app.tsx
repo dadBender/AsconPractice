@@ -1,16 +1,25 @@
-import Head from 'next/head';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
-import { Provider } from 'react-redux';
-import { store } from '@app/store/index';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { theme } from '@theme/theme';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactElement } from 'react';
+import { AppProviders } from '@app/providers/AppProviders';
 import MainLayout from '@app/layouts/MainLayout/MainLayout';
+import { NextPage } from 'next';
 
-const queryClient = new QueryClient();
+// Добавляем типы для страниц с поддержкой layout
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactElement;
+};
 
-function App({ Component, pageProps }: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function App({ Component, pageProps }: AppPropsWithLayout) {
+  // Используем layout из страницы или fallback на MainLayout
+  const getLayout =
+    Component.getLayout ?? ((page: ReactElement) => <MainLayout>{page}</MainLayout>);
+
   return (
     <>
       <Head>
@@ -30,20 +39,11 @@ function App({ Component, pageProps }: AppProps) {
           content="ASCON Thread – устройство для создания резьбы. Продажа, покупка, поддержка."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://192.168.0.219:3000" />
-        <meta property="og:image" content="http://192.168.0.219:3000/logo.png" />
+        <meta property="og:url" content="https://your-production-domain.com" />
+        <meta property="og:image" content="/logo.png" />
       </Head>
 
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <MainLayout>
-              <Component {...pageProps} />
-            </MainLayout>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </Provider>
+      <AppProviders>{getLayout(<Component {...pageProps} />)}</AppProviders>
     </>
   );
 }

@@ -1,4 +1,6 @@
-export const faq = [
+import { type FAQList } from '@features/faq/model/types';
+
+export const faq: FAQList = [
   {
     question: 'Что такое ThreadModeler?',
     answer:
@@ -49,4 +51,4 @@ export const faq = [
     answer:
       'Вы можете связаться с нашей поддержкой по email info@asconstore.com. Мы всегда готовы помочь!',
   },
-];
+].map((item, index) => ({ ...item, id: `faq-${index + 1}` }));

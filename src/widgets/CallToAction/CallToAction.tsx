@@ -8,7 +8,7 @@ export const CallToAction: React.FC = () => {
         Попробуйте ASCON Thread уже сегодня и&nbsp;ускорьте процесс проектирования!
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button href="/products" variant="contained">
+        <Button href="/auth" variant="contained">
           Скачать
         </Button>
       </Box>

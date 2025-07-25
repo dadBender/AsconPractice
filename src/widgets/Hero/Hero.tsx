@@ -25,7 +25,7 @@ export const Hero: React.FC = () => {
         <Typography gutterBottom sx={{ mb: 2 }}>
           {t('hero.description')}
         </Typography>
-        <Button href="/products" variant="contained">
+        <Button href="/payment" variant="contained">
           {t('hero.cta')}
         </Button>
       </Box>
@@ -36,17 +36,21 @@ export const Hero: React.FC = () => {
           height: { xs: 400, md: 400 },
           position: 'relative',
           overflow: 'hidden',
+          borderRadius: 2, // Добавлено для лучшего вида
         }}
       >
         <Image
-          src="/hero.jpg"
-          alt="Hero"
+          src="/images/hero.jpg"
+          alt={t('hero.imageAlt') || 'Hero Image'} // Лучше использовать перевод
           fill
+          priority
+          quality={85}
+          sizes="(max-width: 768px) 100vw, 50vw"
           style={{
             objectFit: 'cover',
             objectPosition: 'center right',
           }}
-          priority
+          unoptimized={process.env.NODE_ENV !== 'production'}
         />
       </Box>
     </Container>
